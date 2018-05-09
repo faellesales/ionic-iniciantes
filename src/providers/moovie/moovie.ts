@@ -13,6 +13,7 @@ export class MoovieProvider {
 
   constructor(public http: Http) {
     console.log('Hello MoovieProvider Provider');
+    
   }
 
   getLatesMovies() {
