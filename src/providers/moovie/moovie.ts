@@ -20,4 +20,9 @@ export class MoovieProvider {
     return this.http.get(this.baseApiPath + "/movie/popular?api_key=2f51516df836c18ac1f73ba134d0a1d5&language=pt-BR");
   }
 
+  getMovieDetails(filmeId) {
+    return this.http.get(this.baseApiPath + `/movie/${filmeId}?api_key=2f51516df836c18ac1f73ba134d0a1d5&language=pt-BR`);
+  }
+
+
 }

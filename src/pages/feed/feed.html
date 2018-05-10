@@ -14,7 +14,12 @@
 
 
 <ion-content padding>
-  <h1>Meus cartões</h1>
+
+  <ion-refresher (ionRefresh)="doRefresh($event)">
+       <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+      
+  <h1>Filmes Populares</h1>
   <ion-card *ngFor="let filme of lista_filmes">
     <ion-item>
       <ion-avatar item-start>
@@ -49,6 +54,6 @@
         </ion-note>
       </ion-col>
     </ion-row>
-
+    <button ion-button block (click)="abrirDetalhes(filme)">Detalhes</button>
   </ion-card>
 </ion-content>
