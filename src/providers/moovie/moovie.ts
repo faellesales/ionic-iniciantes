@@ -16,8 +16,8 @@ export class MoovieProvider {
     
   }
 
-  getLatesMovies() {
-    return this.http.get(this.baseApiPath + "/movie/popular?api_key=2f51516df836c18ac1f73ba134d0a1d5&language=pt-BR");
+  getLatesMovies(page = 1) {
+    return this.http.get(this.baseApiPath + `/movie/popular?page=${page}&api_key=2f51516df836c18ac1f73ba134d0a1d5&language=pt-BR`);
   }
 
   getMovieDetails(filmeId) {

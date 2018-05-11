@@ -30,12 +30,14 @@ export class FeedPage {
 
   }
   
+  public page = 1;
   public lista_filmes = new Array<any>();
   public nomeUsuario:string = "Rafa Sales";
   public loader;
   public refresher;
   public isRefreshing: boolean = false;
-
+  public infiniteScroll;
+  
   constructor(
     public navCtrl: NavController, 
     public navParams: NavParams,
@@ -66,6 +68,12 @@ export class FeedPage {
     this.carregarFilmes();
   }
 
+  doInfinite(infiniteScroll) {
+    this.page++;
+    this.infiniteScroll = infiniteScroll;
+    this.carregarFilmes(true);
+  }
+
   ionViewDidEnter() {
     this.carregarFilmes();
   }
@@ -75,15 +83,23 @@ export class FeedPage {
     this.navCtrl.push(FilmeDetalhesPage,{id: filme.id});
   }
 
-  carregarFilmes(){
+  carregarFilmes(newPage: boolean = false){
    this.abreCarregando();
-    this.movieProvider.getLatesMovies().subscribe(
+    this.movieProvider.getLatesMovies(this.page).subscribe(
       data=>{
         
         const response = (data as any);
         const objeto_retorno = JSON.parse(response._body);
-        this.lista_filmes = objeto_retorno.results;
 
+
+        if(newPage){
+          this.lista_filmes = this.lista_filmes.concat(objeto_retorno.results);
+          this.infiniteScroll.complete();
+
+        }else{
+          this.lista_filmes = objeto_retorno.results;
+        }
+        
         console.log(objeto_retorno);
         this.fechaCarregando();
 
